@@ -18,11 +18,49 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" className="__variable_10b8bd __variable_d52403 __variable_f498c6 __variable_8db913 antialiased dark:bg-gray-950 system">
+      <body>
+        {/* 헤더영역 */}
+        <header className="fixed inset-x-0 top-0 z-10 border-b border-gray-950/5 dark:border-white/10">
+          <div className="bg-slate-900">
+            <div className="flex h-14 px-6 items-center">헤더영역</div>
+          </div>
+        </header>
+
+        <div className="grid min-h-dvh pt-14 grid-cols-[200px_1fr] dark:bg-black">
+          {/* 사이드바 영역 */}
+          <aside className="relative col-start-1 row-span-full row-start-1 scheme-light-dark">
+            <div className="absolute inset-0">
+              <div className="sticky top-14 bottom-0 left-0 h-full max-h-[calc(100dvh-(var(--spacing)*14))] overflow-y-auto">
+                <ul className="flex flex-col p-4">
+                  <li className="mb-2"><a href="/">홈</a></li>
+                  <li className="mb-2"><a href="/about">소개</a></li>
+                  <li className="mb-2"><a href="/contact">연락처</a></li>
+                  <li className="mb-2"><a href="/contact">연락처</a></li>
+                  <li className="mb-2"><a href="/contact">연락처</a></li>
+                  <li className="mb-2"><a href="/contact">연락처</a></li>
+                  <li className="mb-2"><a href="/contact">연락처</a></li>
+                  <li className="mb-2"><a href="/contact">연락처</a></li>
+                  <li className="mb-2"><a href="/contact">연락처</a></li>
+                  <li className="mb-2"><a href="/contact">연락처</a></li>
+                  <li className="mb-2"><a href="/contact">연락처</a></li>
+                  <li className="mb-2"><a href="/contact">연락처</a></li>
+                  <li className="mb-2"><a href="/contact">연락처</a></li>
+                  <li className="mb-2"><a href="/contact">연락처</a></li>
+                  <li className="mb-2"><a href="/contact">연락처</a></li>
+                  <li className="mb-2"><a href="/contact">연락처</a></li>
+                  <li className="mb-2"><a href="/contact">연락처</a></li>
+                  <li className="mb-2"><a href="/contact">연락처</a></li>
+                  <li className="mb-2"><a href="/contact">연락처</a></li>
+                </ul>
+              </div>
+            </div>
+          </aside>
+          {/* 메인 컨텐츠 영역 */}
+          <div className="relative row-start-1 grid col-start-2 p-10">
+            {children}
+          </div>
+        </div>
       </body>
     </html>
   );
