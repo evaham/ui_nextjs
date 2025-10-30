@@ -1,4 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import Link from "next/link";
+import Script from "next/script";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,49 +20,108 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="__variable_10b8bd __variable_d52403 __variable_f498c6 __variable_8db913 antialiased dark:bg-gray-950 system">
-      <body>
-        {/* 헤더영역 */}
-        <header className="fixed inset-x-0 top-0 z-10 border-b border-gray-950/5 dark:border-white/10">
-          <div className="bg-slate-900">
-            <div className="flex h-14 px-6 items-center">헤더영역</div>
-          </div>
-        </header>
-
-        <div className="grid min-h-dvh pt-14 grid-cols-[200px_1fr] dark:bg-black">
-          {/* 사이드바 영역 */}
-          <aside className="relative col-start-1 row-span-full row-start-1 scheme-light-dark">
-            <div className="absolute inset-0">
-              <div className="sticky top-14 bottom-0 left-0 h-full max-h-[calc(100dvh-(var(--spacing)*14))] overflow-y-auto">
-                <ul className="flex flex-col p-4">
-                  <li className="mb-2"><a href="/">홈</a></li>
-                  <li className="mb-2"><a href="/about">소개</a></li>
-                  <li className="mb-2"><a href="/contact">연락처</a></li>
-                  <li className="mb-2"><a href="/contact">연락처</a></li>
-                  <li className="mb-2"><a href="/contact">연락처</a></li>
-                  <li className="mb-2"><a href="/contact">연락처</a></li>
-                  <li className="mb-2"><a href="/contact">연락처</a></li>
-                  <li className="mb-2"><a href="/contact">연락처</a></li>
-                  <li className="mb-2"><a href="/contact">연락처</a></li>
-                  <li className="mb-2"><a href="/contact">연락처</a></li>
-                  <li className="mb-2"><a href="/contact">연락처</a></li>
-                  <li className="mb-2"><a href="/contact">연락처</a></li>
-                  <li className="mb-2"><a href="/contact">연락처</a></li>
-                  <li className="mb-2"><a href="/contact">연락처</a></li>
-                  <li className="mb-2"><a href="/contact">연락처</a></li>
-                  <li className="mb-2"><a href="/contact">연락처</a></li>
-                  <li className="mb-2"><a href="/contact">연락처</a></li>
-                  <li className="mb-2"><a href="/contact">연락처</a></li>
-                  <li className="mb-2"><a href="/contact">연락처</a></li>
-                </ul>
+    <html lang="ko" >
+      <body className="text-slate-900 dark:text-white">
+        <div className="flex h-dvh">
+          <div className="flex-1 flex size-full bg-slate-50">
+            {/* 사이드바 영역 시작 */}
+            <aside className="flex bg-slate-200 dark:bg-slate-900">
+              <div className="absolute top-0 left-0">
               </div>
-            </div>
-          </aside>
-          {/* 메인 컨텐츠 영역 */}
-          <div className="relative row-start-1 grid col-start-2 p-10">
-            {children}
+              <div className="relative flex flex-col h-full max-lg:hidden">
+                <div className="sticky bottom-0 left-0 h-full max-h-[calc(100dvh-(var(--spacing)*14))] overflow-y-auto" style={{scrollbarWidth: "none"}}>
+                  <ul className="flex flex-col p-4 text-slate-900 dark:text-slate-200">
+                    <li className="mb-2"><Link href="/">홈</Link></li>
+                    <li className="mb-2"><Link href="/formStyle">폼 스타일</Link></li>
+                    <li className="mb-2"><Link href="/tableStyle">테이블 스타일</Link></li>
+                    <li className="mb-2"><Link href="/layerPopup">레이어팝업 스타일</Link></li>
+                  </ul>
+                </div>
+
+                <div id="theme-toggle-container" className="flex flex-col items-center m-4 gap-1 rounded-lg border border-gray-300 dark:border-gray-600 p-1 bg-white dark:bg-gray-800">
+                  <button id="btnSystem" type="button" className="inline-flex items-center justify-center px-3 w-full h-8 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">시스템</button>
+                  <button id="btnLight" type="button" className="inline-flex items-center justify-center px-3 w-full h-8 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">라이트</button>
+                  <button id="btnDark" type="button" className="inline-flex items-center justify-center px-3 w-full h-8 text-sm font-medium rounded-md text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">다크</button>
+                </div>
+
+              </div>
+            </aside>
+            {/* 사이드바 영역 종료 */}
+            {/* 메인 컨텐츠 영역 시작 */}
+            <main className="flex-1 flex flex-col h-auto min-w-0 max-h-screen">
+              <div className="flex-1 flex flex-col max-h-full">
+                {children}
+              </div>
+            </main>
+            {/* 메인 컨텐츠 영역 종료 */}
           </div>
         </div>
+
+        {/* 테마 토글 스크립트 */}
+        <Script id="theme-toggle-3way" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: `
+          (function(){
+            var STORAGE_KEY = 'theme-mode';
+            var root = document.documentElement;
+            var btnS = document.getElementById('btnSystem');
+            var btnL = document.getElementById('btnLight');
+            var btnD = document.getElementById('btnDark');
+            var currentMode = 'system';
+
+            function applyTheme(mode) {
+              currentMode = mode;
+              if (mode === 'dark') {
+                root.classList.add('dark');
+                root.dataset.theme = 'dark';
+              } else if (mode === 'light') {
+                root.classList.remove('dark');
+                root.dataset.theme = 'light';
+              } else {
+                // system: 시스템 다크 선호를 체크
+                var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (prefersDark) {
+                  root.classList.add('dark');
+                  root.dataset.theme = 'dark';
+                } else {
+                  root.classList.remove('dark');
+                  root.dataset.theme = 'light';
+                }
+              }
+              updateButtons();
+              try { localStorage.setItem(STORAGE_KEY, mode); } catch(e){}
+            }
+
+            function updateButtons() {
+              if(!btnS || !btnL || !btnD) return;
+              // 모두 초기화
+              [btnS, btnL, btnD].forEach(function(btn){
+                btn.classList.remove('bg-gray-900','text-white','dark:bg-white','dark:text-gray-900');
+                btn.classList.add('text-gray-700','dark:text-gray-200');
+              });
+              // 활성 버튼 하이라이트
+              var activeBtn = currentMode === 'system' ? btnS : currentMode === 'light' ? btnL : btnD;
+              activeBtn.classList.add('bg-gray-900','text-white','dark:bg-white','dark:text-gray-900');
+              activeBtn.classList.remove('text-gray-700','dark:text-gray-200');
+            }
+
+            // 초기화: 저장값 우선, 없으면 system
+            var stored = 'system';
+            try { stored = localStorage.getItem(STORAGE_KEY) || 'system'; } catch(e){}
+            applyTheme(stored);
+
+            // 시스템 테마 변경 감지 (system 모드일 때만)
+            if(window.matchMedia){
+              var mql = window.matchMedia('(prefers-color-scheme: dark)');
+              mql.addEventListener('change', function(){
+                if(currentMode === 'system') applyTheme('system');
+              });
+            }
+
+            // 버튼 이벤트
+            btnS && btnS.addEventListener('click', function(){ applyTheme('system'); });
+            btnL && btnL.addEventListener('click', function(){ applyTheme('light'); });
+            btnD && btnD.addEventListener('click', function(){ applyTheme('dark'); });
+          })();
+        ` }} />
       </body>
     </html>
   );
